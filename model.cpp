@@ -26,7 +26,7 @@ Model::Model(const std::string filename) {
             vec2 uv;
             for (int i=0;i<2;i++) iss >> uv[i];
             tex_coord.push_back({uv.x, 1-uv.y});
-        }  else if (!line.compare(0, 2, "f ")) {
+        } else if (!line.compare(0, 2, "f ")) {
             int f,t,n;
             iss >> trash;
             int cnt = 0;
@@ -36,7 +36,7 @@ Model::Model(const std::string filename) {
                 facet_nrm.push_back(--n);
                 cnt++;
             }
-            if (3!=cnt) {
+            if (cnt != 3) {
                 std::cerr << "Error: the obj file is supposed to be triangulated" << std::endl;
                 return;
             }

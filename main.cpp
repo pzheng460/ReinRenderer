@@ -49,7 +49,7 @@ struct Shader : IShader {
         double spec = std::pow(std::max(-r.z, 0.), 5+sample2D(model.specular(), uv)[0]); // specular intensity, note that the camera lies on the z-axis (in view), therefore simple -r.z
 
         TGAColor c = sample2D(model.diffuse(), uv);
-        for (int i : {0,1,2})
+        for (int i = 0; i < 3; i++)
             gl_FragColor[i] = std::min<int>(10 + c[i]*(diff + spec), 255); // (a bit of ambient light, diff + spec), clamp the result
 
         return false; // the pixel is not discarded
