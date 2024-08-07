@@ -33,8 +33,8 @@ struct Shader : IShader {
     }
 
     virtual bool fragment(const vec3 bar, TGAColor &gl_FragColor) {
-        vec3 bn = (varying_nrm*bar).normalized(); // per-vertex normal interpolation
-        vec2 uv = varying_uv*bar; // tex coord interpolation
+        vec3 bn = (varying_nrm * bar).normalized(); // per-vertex normal interpolation
+        vec2 uv = varying_uv * bar; // tex coord interpolation
 
         // for the math refer to the tangent space normal mapping lecture
         // https://github.com/ssloy/tinyrenderer/wiki/Lesson-6bis-tangent-space-normal-mapping
@@ -76,8 +76,8 @@ int main(int argc, char** argv) {
 
     TGAImage framebuffer(width, height, TGAImage::RGB); // the output image
     lookat(eye, center, up);                            // build the ModelView matrix
-    viewport(width/8, height/8, width*3/4, height*3/4); // build the Viewport matrix
-    projection((eye-center).norm());                    // build the Projection matrix
+    viewport(width / 8, height / 8, width * 3 / 4, height * 3 / 4); // build the Viewport matrix
+    projection((eye - center).norm());                    // build the Projection matrix
     std::vector<double> zbuffer(width*height, std::numeric_limits<double>::max());
 
     for (const auto& obj_file : obj_files) { // iterate through all input objects

@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.1)
-project(ReinRenderer)
+project(SoftwareRenderer)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -44,7 +44,7 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 
-file(GLOB SOURCES *.h *.cpp)
+file(GLOB_RECURSE SOURCES "src/*.h" "src/*.cpp")
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 

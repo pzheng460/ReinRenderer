@@ -33,14 +33,16 @@ void triangle(const vec4 clip_verts[3], IShader &shader, TGAImage &image, std::v
 
     int bboxmin[2] = {image.width()-1, image.height()-1};
     int bboxmax[2] = {0, 0};
-    for (int i=0; i<3; i++)
-        for (int j=0; j<2; j++) {
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 2; j++) {
             bboxmin[j] = std::min(bboxmin[j], static_cast<int>(pts2[i][j]));
             bboxmax[j] = std::max(bboxmax[j], static_cast<int>(pts2[i][j]));
         }
+    }
+
 #pragma omp parallel for
-    for (int x=std::max(bboxmin[0], 0); x<=std::min(bboxmax[0], image.width()-1); x++) {
-        for (int y=std::max(bboxmin[1], 0); y<=std::min(bboxmax[1], image.height()-1); y++) {
+    for (int x = std::max(bboxmin[0], 0); x <= std::min(bboxmax[0], image.width()-1); x++) {
+        for (int y=std::max(bboxmin[1], 0); y <= std::min(bboxmax[1], image.height()-1); y++) {
             vec3 bc_screen = barycentric(pts2, {static_cast<double>(x), static_cast<double>(y)});
             vec3 bc_clip   = {bc_screen.x/pts[0][3], bc_screen.y/pts[1][3], bc_screen.z/pts[2][3]};
             bc_clip = bc_clip/(bc_clip.x+bc_clip.y+bc_clip.z); // check https://github.com/ssloy/tinyrenderer/wiki/Technical-difficulties-linear-interpolation-with-perspective-deformations
